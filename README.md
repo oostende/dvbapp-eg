@@ -1,4 +1,2 @@
-enigma2
+dvbapp
 =======
-
-OpenViX Enigma2 
