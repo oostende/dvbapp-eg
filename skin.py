@@ -13,7 +13,7 @@ from Tools.Directories import SCOPE_CONFIG, SCOPE_CURRENT_LCDSKIN, SCOPE_CURRENT
 from Tools.Import import my_import
 from Tools.LoadPixmap import LoadPixmap
 
-DEFAULT_SKIN = "ViX-Night-HD/skin.xml"
+DEFAULT_SKIN = "oDreamy-FHD/skin.xml"
 EMERGENCY_SKIN = "skin_default/skin.xml"
 DEFAULT_DISPLAY_SKIN = "skin_default/skin_display.xml"
 USER_SKIN = "skin_user.xml"
